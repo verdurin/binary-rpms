@@ -3,24 +3,25 @@
 
 Name:		RIco
 Version:	1.0.7
-Release:	2%{?dist}
+Release:	5%{?dist}
 Summary:	Package for the 3D Reconstruction of Icosahedral objects
 
 Group:          Applications/Engineering
 License:        Public Domain
 URL:            https://sites.google.com/site/downloadrico/home
 Source0:        %{name}Dist-%{version}.tgz
-Source1:	%{name}BIN_linux_x86_32_gfortran_dynamic-%{version}.tgz
+Source1:	%{name}BIN_linux_x86_32_gfortran_static-%{version}.tar
 Patch0:		%{name}-startup.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 #Would be lesstif on Fedora
-Requires:       openmotif
+Requires:       lesstif >= 0.95.2
 Requires:	ncurses
 Requires:	gnuplot
 Requires:	vim-enhanced
 Requires:	ImageMagick
-Requires:	fftw3
+#Requires:	fftw3
+#Requires:	libgfortran44
 
 %description
 The 3D Cryo-Electron Microscopy (3D cryo-EM) is a method for the
@@ -40,6 +41,8 @@ information from a minimum quantity of images.
 %setup -q -n %{name}Dist
 %patch0 -p1 -b .%{name}-startup.patch
 
+tar xvf %{SOURCE1} --strip-components=1
+
 %build
 
 
@@ -49,8 +52,18 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_prefix}/%{packdir}/
 #mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 
+#TODO: world write permissions on test_data
+#world execute permissions on BIN* directory
+
 #cp README Navaza2003.pdf %{buildroot}%{_docdir}/%{name}-%{version}
 mv  * %{buildroot}%{_prefix}/%{packdir}/
+
+#needed to run tests
+chmod -R 777 %{buildroot}%{_prefix}/%{packdir}/test_data
+
+#fix binary permissions
+chmod 0755 %{buildroot}%{_prefix}/%{packdir}/BIN_linux_x86_32_gfortran_static/*
+
 
 %clean
 rm -rf %{buildroot}
@@ -64,6 +77,15 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-5
+- fix permissions for binaries and test_data
+
+* Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-4
+- use -static instead of -dynamic, because of missing libgfortran version
+
+* Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-3
+- ensure specific binary files included
+
 * Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-2
 - add explicit reqs. for lesstif, for EPEL5
 - add other explicit reqs
