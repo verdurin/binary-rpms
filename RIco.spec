@@ -11,6 +11,7 @@ License:        Public Domain
 URL:            https://sites.google.com/site/downloadrico/home
 Source0:        %{name}Dist-%{version}.tgz
 Source1:	%{name}BIN_linux_x86_32_gfortran_dynamic-%{version}.tgz
+Patch0:		%{name}-startup.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 #Would be lesstif on Fedora
@@ -37,7 +38,7 @@ information from a minimum quantity of images.
 
 %prep
 %setup -q -n %{name}Dist
-
+%patch0 -p1 -b .%{name}-startup.patch
 
 %build
 
@@ -57,6 +58,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
+%dir %{_prefix}/%{packdir}
 %{_prefix}/%{packdir}/*
 
 
@@ -65,6 +67,8 @@ rm -rf %{buildroot}
 * Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-2
 - add explicit reqs. for lesstif, for EPEL5
 - add other explicit reqs
+- fix ownership of main directory
+- add patch for startup.tcsh
 
 * Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-1
 - initial version
