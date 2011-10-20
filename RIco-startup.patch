@@ -1,6 +1,6 @@
 --- RIcoDist/startup.tcsh	2008-09-17 23:37:44.000000000 +0100
-+++ RIcoDist.new/startup.tcsh	2011-10-20 15:26:07.874751419 +0100
-@@ -14,7 +14,7 @@
++++ RIcoDist.new/startup.tcsh	2011-10-20 15:33:34.023757845 +0100
+@@ -14,13 +14,13 @@
  ########################################################################
  
  # Main path
@@ -9,6 +9,14 @@
  
  # OS/Architecture/compiler identifier (choose one).
  #setenv BIN "BIN_linux_x86_64_gfortran_dynamic"
+ #setenv BIN "BIN_linux_x86_64_gfortran_static"
+-#setenv BIN "BIN_linux_x86_32_gfortran_dynamic"
+-setenv BIN "BIN_linux_x86_32_gfortran_static"
++setenv BIN "BIN_linux_x86_32_gfortran_dynamic"
++#setenv BIN "BIN_linux_x86_32_gfortran_static"
+ #setenv BIN "BIN_linux_x86_32_g77_dynamic"
+ #setenv BIN "BIN_linux_x86_32_g77_static"
+ #setenv BIN "BIN_cygwin_x86_32_g77_static"
 @@ -34,8 +34,8 @@
  setenv REDITOR "/usr/bin/vim"
  
