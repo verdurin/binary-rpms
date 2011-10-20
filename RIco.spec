@@ -3,7 +3,7 @@
 
 Name:		RIco
 Version:	1.0.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Package for the 3D Reconstruction of Icosahedral objects
 
 Group:          Applications/Engineering
@@ -13,9 +13,13 @@ Source0:        %{name}Dist-%{version}.tgz
 Source1:	%{name}BIN_linux_x86_32_gfortran_dynamic-%{version}.tgz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-#BuildRequires:  
-#May need lesstif
-#Requires:       
+#Would be lesstif on Fedora
+Requires:       openmotif
+Requires:	ncurses
+Requires:	gnuplot
+Requires:	vim-enhanced
+Requires:	ImageMagick
+Requires:	fftw3
 
 %description
 The 3D Cryo-Electron Microscopy (3D cryo-EM) is a method for the
@@ -58,6 +62,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-2
+- add explicit reqs. for lesstif, for EPEL5
+- add other explicit reqs
+
 * Thu Oct 20 2011 Adam Huffman <bloch@verdurin.com> - 1.0.7-1
 - initial version
 
