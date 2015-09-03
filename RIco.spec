@@ -30,7 +30,7 @@ experimental techniques, 3D cryo-EM depends on special software
 (e.g. RIco) to produce medium resolution 3D maps (50Å-10Å) from a set
 of 2D images produced by an electron microscope.
 
-Many viruses are knwon to have icosahedral capsids to carry and
+Many viruses are known to have icosahedral capsids to carry and
 protect their genetic material. Therefore, the presence of symmetry
 can be exploited allowing effective information extraction.
 
